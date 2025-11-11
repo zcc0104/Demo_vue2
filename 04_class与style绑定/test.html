@@ -4,10 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>计算属性和监听</title>
+    <style>
+      .aClass {
+        background-color: lightblue;
+      }
+      .bClass {
+        font-size: 40px;
+        background-color: lightcoral;
+      }
+      .cClass {
+        font-size: 60px;
+      }
+    </style>
   </head>
   <body>
+    <!-- 
+    1. class绑定: :class='xxx' 可以绑定字符串、对象、数组
+    2. style绑定: :style='xxx' 可以绑定对象、数组
+        :style="{color: aciveColor,fontSize: fontSize + 'px'}"
+          其中aciveColor和fontSize是data中的数据
+    -->
     <div id="app">
-      
+      <h2>1. class绑定: :class='xxx'</h2>
+      <p :class="a">xxx字符串</p>
+      <p :class="{aClass:isA,bClass:isB}">xxx对象</p>
+      <p :class="['aClass','cClass']">xxx数组</p>
+      <button @click="updateClass">更新class</button>
+      <h2>2. style绑定</h2>
+      <p :style="{color: aciveColor,fontSize: fontSize + 'px'}">xxx对象</p>
+        <p :style="[{color: aciveColor},{fontSize: fontSize + 'px'}]">xxx数组</p>
+      <button @click="updateStyle">更新style</button>
     </div>
 
     <script
@@ -16,11 +42,25 @@
     ></script>
     <script type="text/javascript">
       const vm = new Vue({
-        el: "#app", 
+        el: "#app",
         data: {
-          
+          a: "aClass",
+          isA: true,
+          isB: false,
+          aciveColor: "red",
+          fontSize: 30,
         },
-        
+        methods: {
+          updateClass() {
+            this.a = "bClass";
+            this.isA = false;
+            this.isB = true;
+          },
+          updateStyle() {
+            this.aciveColor = "blue";
+            this.fontSize = 50;
+          },
+        },
       });
     </script>
   </body>
